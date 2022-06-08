@@ -11,12 +11,19 @@ export const GET_ANIME_QUERY = gql`
                 perPage
             }
         media (id: $id, search: $search) {
-            id
+            id 
+            
             title {
                 english
-                native
+                native 
             }
+            coverImage {
+                large
+                medium
+            }
+           
         }
+       
   }
 }
 `;

@@ -1,18 +1,17 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Box, IconButton, Typography } from "@mui/material";
-import anime from "../assets/png/anime.png";
-
+import { toast } from "react-toastify";
 
 
 function AnimeCard({ item, favorites, setFavorites }) {
 
     return (
-        <Box sx={{ width: "373px", backgroundColor: "white", height: "270px", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+        <Box sx={{ width: "373px", backgroundColor: "white", height: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
 
             <Box
                 component="img"
-                sx={{ height: "150px", width: "373px" }}
-                src={anime}
+                sx={{ height: "150px", width: "373px", objectFit: "cover" }}
+                src={item?.coverImage?.medium}
                 alt="anime"
             />
             <Box
@@ -46,16 +45,22 @@ function AnimeCard({ item, favorites, setFavorites }) {
                 disableSpacing
                 sx={{
                     display: "flex",
-                    justifyContent: "end",
+                    justifyContent: "flex-end",
 
 
                 }}>
                 <IconButton
                     aria-label="add to favorites"
                     onClick={() => {
+                        if (favorites?.length == 3 && !favorites?.some((i) => i.id === item.id)) {
+                            toast.warning("You are't able to add more than 3 favorites")
+                            return;
+                        }
                         if (favorites?.some((i) => i.id === item.id)) {
                             setFavorites((prev) => { return prev.filter(i => i.id !== item.id) })
-                        } else { setFavorites((prev) => { return [...prev, item] }) }
+                        } else {
+                            setFavorites((prev) => { return [...prev, item] })
+                        }
                     }}>
                     <FavoriteIcon sx={[favorites?.some((i) => i.id === item.id) ? { color: "red" } : { color: "grey" }]} />
                 </IconButton>

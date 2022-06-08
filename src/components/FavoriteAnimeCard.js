@@ -4,7 +4,7 @@ import { useState } from "react";
 import favAnime from "../assets/png/favAnime.png";
 
 
-function FavoriteAnimeCard({ id, originalName, remove }) {
+function FavoriteAnimeCard({ setFavorites, remove, item }) {
 
 
     return (
@@ -20,19 +20,19 @@ function FavoriteAnimeCard({ id, originalName, remove }) {
 
             <Box
                 component="img"
-                sx={{ height: "217px", width: "117px" }}
-                src={favAnime}
+                sx={{ height: "217px", width: "117px", objectFit: "cover" }}
+                src={item?.coverImage?.medium}
                 alt="favAnime"
             />
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", }}>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexGrow: 1, ml: 1 }}>
 
                 <Typography sx={{ fontSize: "16px", fontFamily: "Noto Serif JP", fontWeight: "700" }}>
-                    {originalName}
+                    {item?.title?.native || item?.title?.english}
                 </Typography>
 
             </Box>
             <Box sx={{ display: "flex", justifyContent: "end", marginTop: "auto" }}>
-                <IconButton aria-label="add to favorites" onClick={() => remove(id)}>
+                <IconButton aria-label="add to favorites" onClick={() => setFavorites((prev) => prev?.filter(i => i.id !== item.id))}>
                     <CloseIcon />
                 </IconButton>
 

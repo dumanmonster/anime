@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { GET_ANIME_QUERY } from '../graphql/Queries';
 import AnimeCard from "./AnimeCard";
 import FavoriteAnimeCard from './FavoriteAnimeCard';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 function Body() {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
@@ -78,7 +80,7 @@ function Body() {
             />
             <Box sx={{ maxWidth: "1079px", maxHeight: "633px" }}>
                 {data?.Page?.media?.length > 0 &&
-                    <Grid container columnSpacing={{ xs: "35px", md: "35px" }} rowSpacing={{ xs: "15px", md: "15px" }} columns={{ xs: 4, sm: 8, md: 12 }} >
+                    <Grid container columnSpacing={{ xs: "35px", md: "35px", sm: "35px", lg: "35px" }} rowSpacing={{ xs: "15px", md: "15px", sm: "15px", lg: "15px" }} columns={{ xs: 4, sm: 8, md: 12 }} >
                         {data?.Page?.media && data?.Page?.media?.map((item) => (
                             <Grid item xs={1} sm={4} md={4} key={item.id} >
                                 <AnimeCard key={item.id} item={item} favorites={favorites} setFavorites={setFavorites} />
@@ -90,27 +92,31 @@ function Body() {
 
             </Box>
             {data?.Page?.media?.length > 0 &&
-                <Button
-                    disabled={!data?.Page?.pageInfo?.hasNextPage}
-                    sx={{
-                        fontSize: "16px",
-                        fontFamily: "Noto Serif JP",
-                        fontWeight: "700",
-                        color: "#333333",
-                        backgroundColor: "#00CC99",
-                        width: "159px",
-                        height: "50px",
-                        borderRadius: "5px",
-                        mt: 1,
-                        ":hover": {
+                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "row" }}>
+                    <ArrowBackIcon sx={{ color: "#00CC99", mr: 3 }} onClick={() => setPage(page - 1)} />
+                    <Button
+                        disabled={!data?.Page?.pageInfo?.hasNextPage}
+                        sx={{
+                            fontSize: "16px",
+                            fontFamily: "Noto Serif JP",
+                            fontWeight: "700",
                             color: "#333333",
                             backgroundColor: "#00CC99",
-                        }
-                    }}
-                    onClick={() => setPage(page + 1)}
-                >
-                    More
-                </Button>}
+                            width: "159px",
+                            height: "50px",
+                            borderRadius: "5px",
+                            mt: 1,
+                            ":hover": {
+                                color: "#333333",
+                                backgroundColor: "#00CC99",
+                            }
+                        }}
+                        onClick={() => setPage(page + 1)}
+                    >
+                        More
+                    </Button>
+                </Box>
+            }
             {favorites.length !== 0 &&
                 <>
                     <Typography
@@ -125,11 +131,11 @@ function Body() {
                     >
                         Любимые аниме
                     </Typography>
-                    <Box sx={{ maxWidth: "1079px", maxHeight: "633px" }}>
-                        <Grid container columnSpacing={{ xs: "35px", md: "35px" }} rowSpacing={{ xs: "15px", md: "15px" }} columns={{ xs: 4, sm: 8, md: 12 }} >
+                    <Box sx={{ width: "1079px", height: "633px" }}>
+                        <Grid container columnSpacing={{ xs: "35px", md: "35px", }} rowSpacing={{ xs: "15px", md: "15px" }} columns={{ xs: 4, sm: 8, md: 12 }} >
                             {favorites.map((item) => (
                                 <Grid item xs={1} sm={4} md={4} key={item.id} >
-                                    <FavoriteAnimeCard key={item.id} id={item.id} originalName={item?.title?.native} remove={remove} />
+                                    <FavoriteAnimeCard key={item.id} setFavorites={setFavorites} item={item} />
                                 </Grid>
                             ))}
                         </Grid>
