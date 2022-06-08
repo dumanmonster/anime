@@ -58,7 +58,7 @@ function Body() {
                 sx={{
                     width: "600px",
                     borderRadius: "5px",
-                    height: "60px",
+                    height: "50px",
                     backgroundColor: "white",
                     mt: 2,
                     mb: 2,
@@ -81,7 +81,7 @@ function Body() {
                     <Grid container columnSpacing={{ xs: "35px", md: "35px" }} rowSpacing={{ xs: "15px", md: "15px" }} columns={{ xs: 4, sm: 8, md: 12 }} >
                         {data?.Page?.media && data?.Page?.media?.map((item) => (
                             <Grid item xs={1} sm={4} md={4} key={item.id} >
-                                <AnimeCard key={item.id} id={item.id} originalName={item.title.native} englishName={item.title.english} favorites={favorites} setFavorites={setFavorites} />
+                                <AnimeCard key={item.id} item={item} favorites={favorites} setFavorites={setFavorites} />
                             </Grid>
                         ))}
                     </Grid>
@@ -91,7 +91,7 @@ function Body() {
             </Box>
             {data?.Page?.media?.length > 0 &&
                 <Button
-
+                    disabled={!data?.Page?.pageInfo?.hasNextPage}
                     sx={{
                         fontSize: "16px",
                         fontFamily: "Noto Serif JP",

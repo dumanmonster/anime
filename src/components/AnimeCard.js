@@ -5,11 +5,10 @@ import anime from "../assets/png/anime.png"
 
 
 
-function AnimeCard({ originalName, englishName, favorites, setFavorites, id }) {
+function AnimeCard({ item, favorites, setFavorites }) {
 
-    const [fav, setFav] = useState(false);
     return (
-        <Card sx={{ width: "373px", backgroundColor: "white", height: "270px" }}>
+        <Box sx={{ width: "373px", backgroundColor: "white", height: "270px", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
 
             <Box
                 component="img"
@@ -17,7 +16,7 @@ function AnimeCard({ originalName, englishName, favorites, setFavorites, id }) {
                 src={anime}
                 alt="anime"
             />
-            <CardContent
+            <Box
                 sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -32,7 +31,7 @@ function AnimeCard({ originalName, englishName, favorites, setFavorites, id }) {
                         fontFamily: "Noto Serif JP",
                         fontWeight: "700"
                     }}>
-                    {englishName}
+                    {item?.title?.english}
                 </Typography>
                 <Typography
                     sx={{
@@ -40,31 +39,31 @@ function AnimeCard({ originalName, englishName, favorites, setFavorites, id }) {
                         fontFamily: "Noto Serif JP",
                         fontWeight: "700"
                     }}>
-                    {originalName}
+                    {item?.title?.native}
                 </Typography>
 
-            </CardContent>
-            <CardActions
+            </Box>
+            <Box
                 disableSpacing
                 sx={{
                     display: "flex",
                     justifyContent: "end",
-                    marginTop: "auto",
-                    position: "sticky"
+
+
                 }}>
                 <IconButton
                     aria-label="add to favorites"
                     onClick={() => {
-                        if (favorites?.some((i) => i === id)) {
-                            setFavorites((prev) => { return prev.filter(i => i !== id) })
-                        } else { setFavorites((prev) => { return [...prev, id] }) }
+                        if (favorites?.some((i) => i.id === item.id)) {
+                            setFavorites((prev) => { return prev.filter(i => i.id !== item.id) })
+                        } else { setFavorites((prev) => { return [...prev, item] }) }
                     }}>
-                    <FavoriteIcon sx={[favorites?.some((i) => i === id) ? { color: "red" } : { color: "grey" }]} />
+                    <FavoriteIcon sx={[favorites?.some((i) => i.id === item.id) ? { color: "red" } : { color: "grey" }]} />
                 </IconButton>
 
-            </CardActions>
+            </Box>
 
-        </Card >
+        </Box >
     );
 }
 
