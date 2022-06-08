@@ -8,19 +8,11 @@ function FavoriteAnimeCard({ setFavorites, remove, item }) {
 
 
     return (
-        <Box
-            sx={{
-
-                width: "361px",
-                backgroundColor: "white",
-                height: "217px",
-                display: "flex",
-
-            }}>
+        <Box sx={{ width: "100%", height: "100%", backgroundColor: "white", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "row" }}>
 
             <Box
                 component="img"
-                sx={{ height: "217px", width: "117px", objectFit: "cover" }}
+                sx={{ height: "100%", width: "117px", objectFit: "cover" }}
                 src={item?.coverImage?.medium}
                 alt="favAnime"
             />
@@ -38,7 +30,7 @@ function FavoriteAnimeCard({ setFavorites, remove, item }) {
 
             </Box>
 
-        </Box>
+        </ Box >
     );
 }
 

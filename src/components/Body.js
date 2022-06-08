@@ -47,7 +47,7 @@ function Body() {
                     color: "#00CC99",
                     fontWeight: "700",
                     fontSize: "34px",
-                    pt: "10px",
+                    py: "10px",
                     maxWidth: "250px"
                 }}
             >
@@ -55,15 +55,16 @@ function Body() {
             </Typography>
 
             <InputBase
+                fullWidth
                 onChange={(event) => { setSearch(event.target.value) }}
                 placeholder="Text here"
                 sx={{
-                    width: "600px",
+                    mx: 4,
+                    width: "70%",
                     borderRadius: "5px",
                     height: "50px",
                     backgroundColor: "white",
-                    mt: 2,
-                    mb: 2,
+                    mb: 4,
                     ":placeholder": {
                         fontSize: "16px",
                         color: "#D9D9D9",
@@ -78,11 +79,28 @@ function Body() {
                     }
                 }}
             />
-            <Box sx={{ maxWidth: "1079px", maxHeight: "633px" }}>
+
+
+            <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 4 }}>
                 {data?.Page?.media?.length > 0 &&
-                    <Grid container columnSpacing={{ xs: "35px", md: "35px", sm: "35px", lg: "35px" }} rowSpacing={{ xs: "15px", md: "15px", sm: "15px", lg: "15px" }} columns={{ xs: 4, sm: 8, md: 12 }} >
+                    <Grid
+
+                        container
+
+                        sx={{ display: "flex", justifyContent: "center" }}
+                        columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+
+                        rows={{ xs: 6, sm: 6, md: 3, lg: 3 }}
+                    >
                         {data?.Page?.media && data?.Page?.media?.map((item) => (
-                            <Grid item xs={1} sm={4} md={4} key={item.id} >
+                            <Grid
+                                sx={{ my: 4, mx: 1 }}
+                                xs={12}
+                                sm={12}
+                                md={4}
+                                lg={4}
+                                key={item.id}
+                            >
                                 <AnimeCard key={item.id} item={item} favorites={favorites} setFavorites={setFavorites} />
                             </Grid>
                         ))}
@@ -91,7 +109,8 @@ function Body() {
                 }
 
             </Box>
-            {data?.Page?.media?.length > 0 &&
+            {
+                data?.Page?.media?.length > 0 &&
                 <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "row" }}>
                     <ArrowBackIcon sx={{ color: "#00CC99", mr: 3 }} onClick={() => setPage(page - 1)} />
                     <Button
@@ -115,42 +134,48 @@ function Body() {
                     >
                         More
                     </Button>
+
                 </Box>
             }
-            {favorites.length !== 0 &&
-                <>
-                    <Typography
-                        sx={{
-                            fontFamily: "Noto Serif JP",
-                            color: "#00CC99",
-                            fontWeight: "700",
-                            fontSize: "34px",
+            {
+                favorites.length !== 0 &&
 
 
-                        }}
-                    >
-                        Любимые аниме
-                    </Typography>
-                    <Box sx={{ width: "1079px", height: "633px" }}>
-                        <Grid container columnSpacing={{ xs: "35px", md: "35px", }} rowSpacing={{ xs: "15px", md: "15px" }} columns={{ xs: 4, sm: 8, md: 12 }} >
-                            {favorites.map((item) => (
-                                <Grid item xs={1} sm={4} md={4} key={item.id} >
-                                    <FavoriteAnimeCard key={item.id} setFavorites={setFavorites} item={item} />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-
-                </>
+                <Typography
+                    sx={{
+                        fontFamily: "Noto Serif JP",
+                        color: "#00CC99",
+                        fontWeight: "700",
+                        fontSize: "34px",
 
 
-
+                    }}
+                >
+                    Любимые аниме
+                </Typography>
             }
+            <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mb: 4 }}>
+                {favorites.length !== 0 &&
+                    <Grid
+                        container
+                        sx={{ display: "flex", justifyContent: "center" }}
+                        columns={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+
+                        rows={{ xs: 4, sm: 4, md: 3, lg: 3 }}
+                    >
+                        {favorites.map((item) => (
+                            <Grid xs={6} sm={6} md={4} lg={4} key={item.id} sx={{ my: 4, mx: 1 }} >
+                                <FavoriteAnimeCard key={item.id} setFavorites={setFavorites} item={item} />
+                            </Grid>
+                        ))}
+                    </Grid>}
+
+            </Box>
 
 
 
 
-        </Box>
+        </Box >
     );
 }
 

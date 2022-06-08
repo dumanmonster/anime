@@ -9,6 +9,7 @@ function Header() {
             color="transparent"
             elevation={0}
             sx={{
+                width: "100%",
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
