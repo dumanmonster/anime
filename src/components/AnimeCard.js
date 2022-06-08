@@ -1,7 +1,6 @@
-import { Box, Card, CardMedia, Typography, CardContent, CardActions, IconButton } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useState } from "react";
-import anime from "../assets/png/anime.png"
+import { Box, IconButton, Typography } from "@mui/material";
+import anime from "../assets/png/anime.png";
 
 
 
